@@ -1,0 +1,18 @@
+extend layout
+
+block content
+ h3.display-4(class='text-center') Contact Us
+ p(class='text-center') This is contact page
+ .container
+  form(method='post', action='contact/send') 
+   .form-group
+   lable Name
+   input.form-control(type='text', name='name', placeholder='Enter your name')
+   .form-group
+   lable Email
+   input.form-control(type='email', name='email', placeholder='Enter you email')
+   .form-group
+   lable Message
+   input.form-control(type='text', name='message', placeholder='Enter your message')
+   br
+   button.btn.btn-primary(type='submit') Submit 
