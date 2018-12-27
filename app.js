@@ -29,14 +29,14 @@ app.post('/contact/send', function(req, res){
     var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'em@exambazaar.com',
-        pass: ''   //enter the password associated with user mail in signle inverted commas 
+        user: 'testcomeb@gmail.com',
+        pass: 'testcom231834'   //enter the password associated with user mail in signle inverted commas 
       }
     });
 
     var mailOptions = {
-        from: 'Username <em@exambazaar.com>',
-        to: 'wheretosend@gmail.com',
+        from: 'testcom <testcomeb@gmail.com>',
+        to: 'testcomeb@gmail.com',
         subject: 'Submission',
         text: 'you have a submission with the following details... Name: '+req.body.name+'Email: '+req.body.email+'Message: '+req.body.message,
         html: '<p>you have a submission with the following details</p><ul><li>Name: '+req.body.name+'</li><li>Email: '+req.body.name+'</li><li>Message: '+req.body.message+'</li></ul>'
@@ -49,6 +49,7 @@ app.post('/contact/send', function(req, res){
         }
         else{
             console.log('Message Sent: '+info.response);
+            res.redirect('/');
         }
     });
 });
