@@ -3,6 +3,9 @@ var nodemailer = require('express');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var path = require('path');
+var mongodb = require('mongodb');
+var mongoose = require('mongoose');
+
 
 var app = express();
 
@@ -12,6 +15,16 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost:27017/nodem", { useNewUrlParser: true });
+var nameSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    message: String
+});
+
+var myd = mongoose.model("myd", nameSchema);
 
 app.get('/', function(req, res){
     res.render('index',{title: 'Exambazaar'});
@@ -25,7 +38,18 @@ app.get('/contact', function(req, res){
     res.render('contact');
 });
 
+
 app.post('/contact/send', function(req, res){
+
+    var myData = new myd(req.body);
+    myData.save()
+    .then(item => {
+    res.redirect('/');
+    })
+    .catch(err => {
+    res.status(400).send("unable to save to database");
+    });
+
     var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -53,5 +77,6 @@ app.post('/contact/send', function(req, res){
         }
     });
 });
+
 
 app.listen(3000);
