@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongodb = require('mongodb');
 var mongoose = require('mongoose');
-
+var port = process.env.PORT || 8000;
 
 var app = express();
 
@@ -85,4 +85,6 @@ app.post('/contact/send', function(req, res){
 });
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(port, function(){
+    console.log("App is running on port "+port);
+});
