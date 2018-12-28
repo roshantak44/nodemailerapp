@@ -6,11 +6,17 @@ block content
  .container
   form(method='post', action='contact/send') 
    .form-group
-   lable Name
-   input.form-control(type='text', name='name', placeholder='Enter your name')
+   lable To
+   input.form-control(type='email', name='tomail', placeholder='Enter recipent name')
    .form-group
-   lable Email
-   input.form-control(type='email', name='email', placeholder='Enter you email')
+   lable Cc
+   input.form-control(type='email', name='cc', placeholder='Enter recipents')
+   .form-group
+   lable Bcc
+   input.form-control(type='email', name='bcc', placeholder='Enter recipents')
+   .form-group
+   lable Subject
+   input.form-control(type='text', name='tsubject', placeholder='Enter you email')
    .form-group
    lable Message
    input.form-control(type='text', name='message', placeholder='Enter your message')

@@ -1,5 +1,4 @@
 var express = require('express');
-var nodemailer = require('express');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var path = require('path');
@@ -18,13 +17,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/nodem", { useNewUrlParser: true });
-var nameSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    message: String
+var mailSchema = new mongoose.Schema({
+    tomail: {type: String},
+    cc:[{type: String}],
+    bcc:[{type: String}],
+    tsubject: {type: String},
+    date: { type: Date, default: Date.now },
+    message: {type: String}
 });
 
-var myd = mongoose.model("myd", nameSchema);
+var maildata = mongoose.model("maildata", mailSchema);
 
 app.get('/', function(req, res){
     res.render('index',{title: 'Exambazaar'});
@@ -41,7 +43,7 @@ app.get('/contact', function(req, res){
 
 app.post('/contact/send', function(req, res){
 
-    var myData = new myd(req.body);
+    var myData = new maildata(req.body);
     myData.save()
     .then(item => {
     res.redirect('/');
@@ -58,14 +60,18 @@ app.post('/contact/send', function(req, res){
       }
     });
 
+    var toemail = req.body.tomail;
+    var cc = req.body.cc;
+    var bcc = req.body.bcc;
+
     var mailOptions = {
         from: 'testcom <testcomeb@gmail.com>',
-        to: 'testcomeb@gmail.com',
+        to: toemail+","+cc+","+bcc,
         subject: 'Submission',
-        text: 'you have a submission with the following details... Name: '+req.body.name+'Email: '+req.body.email+'Message: '+req.body.message,
-        html: '<p>you have a submission with the following details</p><ul><li>Name: '+req.body.name+'</li><li>Email: '+req.body.name+'</li><li>Message: '+req.body.message+'</li></ul>'
+        html: '<div>'+req.body.message+'</div>'
     };
-   
+
+
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
             console.log(error);
