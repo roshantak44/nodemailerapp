@@ -8,6 +8,7 @@ var port = process.env.PORT || 8000;
 
 var app = express();
 
+app.set('port', process.env.PORT || 8000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -38,6 +39,14 @@ app.get('/about', function(req, res){
 
 app.get('/contact', function(req, res){
     res.render('contact');
+});
+
+app.get('/report', function(req, res){
+    maildata.find({}, function(err, docs){
+		if(err) res.json(err);
+		else    res.render('report', {maildatas: docs});
+    res.render('report');
+});
 });
 
 
@@ -84,6 +93,21 @@ app.post('/contact/send', function(req, res){
     });
 });
 
+
+app.post('/report', function(req, res){
+	new maildata({
+		_id    : req.body.toemail,
+		tomail: req.body.tomail,
+        cc   : req.body.cc,
+        bcc : req.body.bcc,
+        tsubject : req.body.tsubject,
+        date : req.body.date,
+        message	: req.body.message
+	}).save(function(err, doc){
+		if(err) res.json(err);
+		else    res.redirect('/report');
+	});
+});
 
 app.listen(port, function(){
     console.log("App is running on port "+port);
