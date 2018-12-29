@@ -4,6 +4,7 @@
   "description": "nodemailer landpage",
   "main": "app.js",
   "scripts": {
+    "start": "node your-script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
