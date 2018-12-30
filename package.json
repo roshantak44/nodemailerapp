@@ -1,33 +1,28 @@
 {
   "name": "nodem",
   "version": "1.0.0",
-  "engines": {
-    "node": "10.14.1",
-    "npm": "6.4.1"
-  },
-  "description": "nodemailer landpage",
+  "description": "nodemilerPP",
   "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jade": "^1.11.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.1",
+    "nodemailer": "^5.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roshantak44/nodemailerapp.git"
   },
-  "author": "Roshan Tak",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/roshantak44/nodemailerapp/issues"
   },
-  "homepage": "https://github.com/roshantak44/nodemailerapp#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "bower": "^1.8.4",
-    "express": "^4.16.4",
-    "heroku": "^7.19.4",
-    "jade": "^1.11.0",
-    "node": "^11.5.0",
-    "nodemailer": "^4.7.0"
-  }
+  "homepage": "https://github.com/roshantak44/nodemailerapp#readme"
 }
